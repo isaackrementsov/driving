@@ -1,0 +1,32 @@
+{
+  "name": "driving",
+  "version": "1.0.0",
+  "description": "Log for driving cost for school",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isaackrementsov/driving.git"
+  },
+  "keywords": [
+    "driving",
+    "log",
+    "school"
+  ],
+  "author": "Isaac Krementsov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isaackrementsov/driving/issues"
+  },
+  "homepage": "https://github.com/isaackrementsov/driving#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "mongoose": "^5.7.3",
+    "random-key": "^0.3.2",
+    "stripe": "^7.10.0"
+  }
+}
