@@ -7,10 +7,10 @@ module.exports = {
     makePayment: async (req, res) => {
         try {
             const token = req.body.stripeToken;
-            const charge = req.body.charge.toFixed(2);
+            const charge = req.body.charge;
 
             await stripe.charges.create({
-                amount: 100*charge,
+                amount: Math.round(100*charge),
                 currency: 'usd',
                 description: 'Driving Charge',
                 source: token,
@@ -18,6 +18,7 @@ module.exports = {
             });
 
             await User.update({token: req.body.token}, {$inc: {balance: charge}});
+            console.log('about to send')
             res.json(successMsg());
         }catch(e){
             console.log(e);
