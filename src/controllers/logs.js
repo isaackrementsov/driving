@@ -6,7 +6,6 @@ module.exports = {
     get: async (req, res) => {
         try {
             let logs = await Log.find({username: User.find({token: req.query.token}).username}).sort({date: 'asc'}).populate('user');
-
             res.json({logs});
         }catch(e){
             res.json(errorMsg('There was an error getting logs', 500));
