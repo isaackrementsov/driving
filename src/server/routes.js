@@ -9,6 +9,7 @@ module.exports = app => {
     router.get('/api/logs', logs.get);
     router.get('/api/users', users.getNonAdmin);
     router.get('/api/user', users.get);
+    router.get('/api/user/getCredits', users.getUserCredits);
 
     router.post('/api/logs/create', logs.create);
     router.post('/api/users/create', users.create);

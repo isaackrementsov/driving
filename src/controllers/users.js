@@ -1,4 +1,5 @@
 const User = require('../models/users');
+const Credit = require('../models/credits');
 const randomKey = require('random-key');
 const { errorMsg, successMsg } = require('../server/util');
 
@@ -54,7 +55,14 @@ module.exports = {
 
     update: async (req, res) => {
         try {
-            await User.findByIdAndUpdate(req.params.id, {balance: parseFloat(req.body.balance)});
+            await User.findByIdAndUpdate(req.params.id, {$inc: {balance: parseFloat(req.body.credit)}});
+
+            await Credit.create({
+                user: req.params.id,
+                amount: req.body.credit,
+                description: req.body.description,
+                date: req.body.date
+            });
 
             res.json(successMsg());
         }catch(e){
@@ -67,6 +75,16 @@ module.exports = {
             let user = await User.findOne({token: req.query.token});
 
             res.json({user});
+        }catch(e){
+            res.json(errorMsg('There was an error getting the user', 500));
+        }
+    },
+
+    getUserCredits: async (req, res) => {
+        try {
+            let credits = await Credit.find({username: await User.findOne({token: req.query.loggedIn ? req.query.token : req.query.id}).username});
+
+            res.json({credits});
         }catch(e){
             res.json(errorMsg('There was an error getting the user', 500));
         }
