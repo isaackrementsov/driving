@@ -82,7 +82,8 @@ module.exports = {
 
     getUserCredits: async (req, res) => {
         try {
-            let credits = await Credit.find({username: await User.findOne({token: req.query.loggedIn ? req.query.token : req.query.id}).username});
+            let user = await User.findOne(req.query.loggedIn ? {token: req.query.token} : {_id: req.query.id});
+            let credits = await Credit.find({user: user._id});
 
             res.json({credits});
         }catch(e){
